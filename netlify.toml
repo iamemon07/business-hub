@@ -1,0 +1,8 @@
+[build]
+  command = "npm run build"
+  publish = ".next"
+
+[build.environment]
+  # ADMIN_NAME is a display name and SMTP_HOST is a public mail server hostname;
+  # neither is sensitive, so exclude them from secrets scanning.
+  SECRETS_SCAN_OMIT_KEYS = "ADMIN_NAME,SMTP_HOST"

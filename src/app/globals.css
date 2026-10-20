@@ -1,0 +1,123 @@
+@import "tailwindcss";
+
+@theme {
+  --color-cream: #f7f4ee;
+  --color-ivory: #fdfbf7;
+  --color-blush-50: #f3eee5;
+  --color-blush-100: #ebe4d6;
+  --color-blush-200: #ddd3c0;
+  --color-blush-300: #c9ba9f;
+  --color-blush-400: #b3a081;
+  --color-rose: #a8693f;
+  --color-rose-dark: #8a5230;
+  --color-cocoa: #2e3b32;
+  --color-cocoa-light: #4a5a4e;
+  --color-muted: #6f6a5c;
+  --color-line: #e4dccd;
+  --color-admin-bg: #f6f3ec;
+
+  --font-display: var(--font-cormorant), "Cormorant Garamond", Georgia, serif;
+  --font-sans: var(--font-jost), "Jost", system-ui, sans-serif;
+  --font-script: var(--font-script), "Great Vibes", cursive;
+
+  --animate-fade-up: fade-up 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+  --animate-fade-in: fade-in 0.5s ease both;
+
+  @keyframes fade-up {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+}
+
+@layer base {
+  html {
+    -webkit-font-smoothing: antialiased;
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-cream text-cocoa font-sans;
+  }
+  ::selection {
+    @apply bg-blush-200 text-cocoa;
+  }
+  input, select, textarea, button {
+    font: inherit;
+  }
+}
+
+@layer components {
+  .container-x {
+    @apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8;
+  }
+  .input {
+    @apply w-full rounded-xl border border-line bg-ivory px-4 py-3 text-sm text-cocoa placeholder:text-muted/60 outline-none transition focus:border-rose focus:ring-4 focus:ring-blush-200/60;
+  }
+  .label {
+    @apply mb-1.5 block text-xs font-medium uppercase tracking-wider text-muted;
+  }
+  .eyebrow {
+    @apply text-[11px] font-medium uppercase tracking-[0.3em] text-rose;
+  }
+  .heading-display {
+    @apply font-display font-medium tracking-wide text-cocoa;
+  }
+  .card {
+    @apply rounded-2xl border border-line bg-ivory;
+  }
+  .prose-nv h2 {
+    @apply mt-8 mb-3 font-display text-2xl text-cocoa;
+  }
+  .prose-nv p {
+    @apply mb-4 leading-relaxed text-cocoa-light;
+  }
+  .prose-nv ul {
+    @apply mb-4 list-disc space-y-1 pl-5 text-cocoa-light;
+  }
+}
+
+@utility btn {
+  @apply inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-xs font-medium uppercase tracking-[0.18em] transition-all duration-300 disabled:cursor-not-allowed disabled:opacity-50;
+}
+@utility btn-primary {
+  @apply btn bg-cocoa text-ivory hover:bg-cocoa-light hover:shadow-lg hover:shadow-cocoa/15;
+}
+@utility btn-outline {
+  @apply btn border border-cocoa/80 text-cocoa hover:bg-cocoa hover:text-ivory;
+}
+@utility btn-soft {
+  @apply btn bg-blush-100 text-cocoa hover:bg-blush-200;
+}
+
+/* ─── Print: only the invoice, with brand colours, on a clean A4 page ─── */
+@media print {
+  @page {
+    size: A4;
+    margin: 12mm;
+  }
+  html,
+  body {
+    background: #fff !important;
+  }
+  * {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  #invoice {
+    break-inside: avoid;
+    border: 1px solid var(--color-line) !important;
+    box-shadow: none !important;
+  }
+  #invoice tr {
+    break-inside: avoid;
+  }
+  [data-sonner-toaster] {
+    display: none !important;
+  }
+}
+
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { scrollbar-width: none; }
